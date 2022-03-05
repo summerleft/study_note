@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM操作</title>
+</head>
+<body>
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <button id="button1">点击在列表头部添加一个节点</button>
+    <button id="button2">点击在列表尾部添加一个节点</button>
+    <button id="contextmenuButton">右键点击触发contextmenu事件</button>
+    <button id="dblclickButton">双击触发dblclick事件</button>
+    <button id="mousedownButton">按下触发mousedown事件</button>
+    <button id="keydownButton">按下触发keydown事件</button>
+
+</body>
+
+<style>
+    button {
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
+
+<script>
+    const list = document.getElementById('list');
+    const button2 = document.getElementById('button2');
+    
+    button1.addEventListener('click', () => {
+        // 传统方法
+        const newNode = document.createElement('li');
+        const newTextNode = document.createTextNode('0');
+        newNode.appendChild(newTextNode);
+        const firstLi = list.querySelector('li');
+        list.insertBefore(newNode, firstLi);
+
+        // 现代方法
+        // const newNode = document.createElement('li');
+        // newNode.append('0');
+        // list.prepend(newNode);
+    })
+    
+    button2.addEventListener('click', () => {
+        const newNode = document.createElement('li');
+        const newText = document.createTextNode('4');
+        newNode.appendChild(newText);
+        list.appendChild(newNode);
+    })
+
+    contextmenuButton.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        console.log('contextmenu被触发了');
+    })
+
+    dblclickButton.addEventListener('dblclick', () => {
+        console.log('dblclick被触发了');
+    })
+
+    mousedownButton.addEventListener('mousedown', () => {
+        console.log('mousedown被触发了');
+    })
+
+    mousedownButton.addEventListener('mouseup', () => {
+        console.log('mouseup被触发了');
+    })
+
+    keydownButton.addEventListener('keydown', () => {
+        console.log('keydown被触发了');
+    })
+
+</script>
+</html>
