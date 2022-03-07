@@ -14,7 +14,7 @@ window.addEventListener('hashchange', function() {
 }, false)
 // false表示事件冒泡，true表示事件捕获模式，通常为false
 ```
-或使用```onhashchange``事件处理程序属性
+或使用```onhashchange```事件处理程序属性
 ```javascript
 function locationHashChanged() {
     if (location.hash === '#cool-feature') {
