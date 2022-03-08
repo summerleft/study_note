@@ -8,8 +8,8 @@
 </head>
 <body>
     <ul>
-        <li><a href="/home">home</a></li>
-        <li><a href="/about">about</a></li>
+        <li><a href='/home'>home</a></li>
+        <li><a href='/about'>about</a></li>
         <div id="routeView"></div>
     </ul>
 </body>
@@ -25,7 +25,7 @@
         const linkList = document.querySelectorAll('a[href]')
         console.log(linkList);
         linkList.forEach(el => el.addEventListener('click', function(e) {
-            e.preventDefault;
+            e.preventDefault();
             history.pushState(null, '', el.getAttribute('href'));
             routerView.innerHTML = location.pathname;
         }))
