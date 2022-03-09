@@ -20,3 +20,10 @@
   + 如果抛出异常，新的```Promise```变为```rejected```，```reason```为抛出的异常
   + 如果返回的是非```Promise```的任意值，新```Promise```为```resolved```，```value```为返回的值
   + 如果返回新的```Promise```，此```Promise```的结果会成为新```Promise```的结果
+
+### 5. Promise异常穿透
++ 在```Promise```的链式调用中，任何一个环节抛出错误或者```reject()```，都可以在最后加一个catch来指定失败的回调进行处理
+
+### 6. 如何中断Promise链
++ 有且只有一种方式：return一个pending状态的Promise对象
++ ```return new Promise(() => {});```
