@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>flex布局</title>
+</head>
+<body>
+    <header>头部</header>
+    <div class="container">
+        <div class="left">左边</div>
+        <div class="center">中间</div>
+        <div class="right">右边</div>
+    </div>
+    <div class="footer">底部</div>
+</body>
+
+<style>
+    .container {
+        background-color: pink;
+        display: flex;
+    }
+
+    .left {
+        background-color: red;
+        width: 100px;
+    }
+
+    .center {
+        background-color: yellow;
+        flex: 1;
+    }
+
+    .right {
+        background-color: blue;
+        width: 100px;
+    }
+</style>
+</html>
+

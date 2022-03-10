@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            function ajax(content) {
+                console.log('ajax content ' + content);
+            }
+            let inputNormal = document.getElementById('normal');
+            inputNormal.addEventListener('keyup', function(e) {
+                ajax(e.target.value);
+            })
+
+            // 防抖
+            function debounce(fun, delay) {
+                return function(args) {
+                    let that = this;
+                    let _args = args;
+                    clearTimeout(fun.id);
+                    fun.id = setTimeout(function() {
+                        fun.call(that, _args)
+                    }, delay);
+                }
+            }
+
+            let inputDebounce = document.getElementById('debounce');
+            let debounceAjax = debounce(ajax, 500);
+            inputDebounce.addEventListener('keyup', function(e) {
+                debounceAjax(e.target.value);
+            });
+
+            // 节流
+            function throttle(fun, delay) {
+                let last, deferTimer;
+                return function(args) {
+                    let that = this;
+                    let _args = arguments;
+                    
+                    let now = +new Date();
+                    if (last && now < last + delay) {
+                        clearTimeout(deferTimer);
+                        deferTimer = setTimeout(function() {
+                            last = now;
+                            fun.apply(that, _args);
+                        }, delay);
+                    } else {
+                        last = now;
+                        fun.apply(that, _args);
+                    }
+                }
+            }
+
+            let throttleAjax = throttle(ajax, 1000);
+            let inputThrottle = document.getElementById('throttle');
+            inputThrottle.addEventListener('keyup', function(e) {
+                throttleAjax(e.target.value);
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <p>防抖和节流都是为了解决短时间内大量触发某函数而导致的性能问题，比如触发频率过高导致的响应速度跟不上触发频率，出现延迟，假死或卡顿的现象</p>
+    
+    <div>
+        1. 没有防抖的输入
+        <input type="text" name="normal" id="normal">
+    </div>
+    
+    <h1>防抖</h1>
+    
+    <h3>什么是防抖</h3>
+
+    <p>在事件被触发n秒后再执行回调函数，如果在这n秒内又被触发，则重新计时</p>
+
+    <h3>应用场景</h3>
+
+    <ol>
+        <li>用户在输入框中连续输入一串字符后，只会在输入完后去执行最后一次的查询ajax请求，这样可以有效减少请求次数，节约请求资源</li>
+        <li>window的resize、scroll事件，不断地调整浏览器的窗口大小、或者滚动时会触发对应事件，防抖让其只触发一次</li>
+    </ol>
+
+    <div>
+        2. 加入防抖后的输入
+        <input type="text" name="debounce" id="debounce">
+    </div>
+
+    <h2>节流</h2>
+
+    <h3>什么是节流</h3>
+
+    <p>规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内某事件被触发多次，只有一次能生效</p>
+
+    <h3>应用场景</h3>
+
+    <ol>
+        <li>鼠标连续不断地触发某事件（如点击），只在单位时间内只触发一次</li>
+        <li>在页面的无限加载场景下，需要用户在滚动页面时，每隔一段时间发一次ajax请求，而不是在用户停下滚动页面操作时才去请求数据</li>
+        <li>监听滚动事件，比如是否滑到底部自动加载更多，用throttle来判断</li>
+    </ol>
+
+    <div>
+        3. 加入节流后的输入
+        <input type="text" name="throttle" id="throttle">
+    </div>
+</body>
+</html>

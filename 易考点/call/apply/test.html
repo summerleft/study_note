@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    window.onload = function() {
+        Function.prototype.myCall = function(context, ...args) {
+    if (!context || context === null) {
+        // context = window;
+    }
+    let fn = Symbol();
+    context[fn] = this;
+    console.log(this);
+    return context[fn](...args);
+}
+
+const obj = {
+    a: 1,
+    b: function() {
+        console.log(this.a);
+    }};
+const obj2 = {
+    a: 2,
+    b: function() {
+        console.log(this.a)
+    }
+}
+obj.b.myCall(obj2);
+
+Function.prototype.myApply = function(context, args) {
+    if (!context || context === null) {
+        context = window;
+    }
+    let fn = Symbol();
+    context[fn] = this;
+    return context[fn](args);
+}
+
+Function.prototype.myBind = function() {
+
+}
+    }
+</script>
+</html>

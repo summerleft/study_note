@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>防抖节流</title>
+</head>
+<body>
+    <p>普通</p>
+    <input type="text" id="normal" />
+    <p>防抖</p>
+    <input type="text" id="debounce" />
+    <p>节流</p>
+    <input type="text" id="throttle" />
+</body>
+
+<script>
+    window.onload = function() {
+        let ajax = function(content) {
+            console.log(`ajax: ${content}`)
+        }
+
+        let normalInput = document.getElementById('normal');
+        normalInput.addEventListener('keyup', function(e) {
+            ajax(e.target.value);
+        })
+
+        let debounce = function(fun, delay) {
+            return function(args) {
+                let _this = this;
+                let _args = args;
+                clearTimeout(fun.id);
+                fun.id = setTimeout(function() {
+                    fun.call(_this, _args);
+                }, 500)
+            }
+        }
+
+        const debounceAjax = debounce(ajax, 500);
+        const debounceInput = document.getElementById('debounce');
+        debounceInput.addEventListener('keyup', function(e) {
+            debounceAjax(e.target.value);
+        })
+
+        const throttle = function(fun, delay) {
+            let last, deferTimer;
+            return function(args) {
+                let _this = this;
+                let _args = args;
+                let now = +new Date();
+                if (last && last + delay > now) {
+                    clearTimeout(deferTimer);
+                    deferTimer = setTimeout(function() {
+                        fun.call(_this, _args);
+                        last = now;
+                    }, delay)
+                } else {
+                    last = now;
+                    fun.call(_this, _args);
+                }
+            }
+        }
+
+        const throttleAjax = throttle(ajax, 1000);
+        const throttleInput = document.getElementById('throttle');
+        throttleInput.addEventListener('keyup', function(e) {
+            throttleAjax(e.target.value);
+        })
+    }
+</script>
+</html>

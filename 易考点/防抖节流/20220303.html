@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    window.onload = function() {
+        let debounce = function(fn, delay) {
+            let defer
+            return function(...args) {
+                if (defer) {
+                    clearTimeout(defer);
+                }
+                defer = setTimeout(() => {
+                    fn.call(this, ...args);
+                }, delay)
+            }
+        }
+
+        const test = function() {
+            console.log('test');
+        }
+
+        const debounceFun = debounce(test, 500);
+        // window.addEventListener('click', debounceFun);
+
+        let throttle = function(fn, delay) {
+            let last = 0;
+            return function(...args) {
+                let now = +new Date();
+                if (last + delay < now) {
+                    last = now;
+                    fn.call(this, ...args);
+                }
+            }
+        }
+
+        const throttleFun = throttle(test, 500);
+        window.addEventListener('click', throttleFun);
+    }
+</script>
+
+</html>

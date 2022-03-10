@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圣杯布局</title>
+</head>
+<body>
+    <header>头部</header>
+    <div class="container">
+        <div class="middle">主区域</div>
+        <div class="left">左区域</div>
+        <div class="right">右区域</div>
+    </div>
+    <footer>底部</footer>
+</body>
+    
+<style>
+
+.container {
+    background-color: pink;
+    padding: 0 300px;
+    overflow: hidden;
+    /* overflow指定除了visible以外的时候会创建一个块级上下文 */
+}
+
+.left {
+    background-color: red;
+    float: left;
+    width: 300px;
+    position: relative;
+    left: -300px;
+    margin-left: -100%;
+}
+
+.middle {
+    width: 100%;
+    background-color: yellow;
+    float: left;
+}
+
+.right {
+    background-color: blue;
+    float: left;
+    width: 300px;
+    position: relative;
+    right: -300px;
+    margin-left: -300px;
+}
+</style>
+</html>

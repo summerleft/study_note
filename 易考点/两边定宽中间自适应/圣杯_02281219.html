@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>头部</header>
+    <div class="container">
+        <div class="center">中间</div>
+        <div class="left">左边</div>
+        <div class="right">右边</div>
+    </div>
+    <footer>底部</footer>
+</body>
+
+<style>
+    .container {
+        background-color: pink;
+        overflow: hidden;
+        padding: 0 200px;
+    }
+
+    .left {
+        background-color: red;
+        width: 200px;
+        float: left;
+        position: relative;
+        left: -200px;
+        margin-left: -100%;
+    }
+
+    .center {
+        background-color: yellow;
+        width: 100%;
+        float: left;
+    }
+    
+    .right {
+        background-color: blue;
+        width: 200px;
+        float: left;
+        position: relative;
+        right: -200px;
+        margin-left: -200px;
+    }
+</style>
+</html>

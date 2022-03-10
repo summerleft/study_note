@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>防抖节流练习20220224</title>
+</head>
+
+<script>
+    window.onload = function() {
+        let ajax = function(content) {
+            console.log('ajax' + content);
+        }
+        let normal = document.getElementById('normal')
+        normal.addEventListener('keyup', function(e) {
+            ajax(e.target.value);
+        })
+
+        function debounce(fun, delay) {
+            return function(args) {
+                let that = this;
+                let _arg = args;
+                clearTimeout(fun.id);
+                fun.id = setTimeout(function() {
+                    fun.call(that, _arg);
+                }, delay)
+            }
+        }
+        let debounceAjax = debounce(ajax, 500);
+        let debounceInput = document.getElementById('debounce');
+        debounceInput.addEventListener('keyup', function(e) {
+            debounceAjax(e.target.value);
+        })
+
+        function throttle(fun, delay) {
+            let last;
+            return function(args) {
+                let that = this;
+                let _arg = args;
+                let now = +new Date();
+                if (last && now < last + delay) {
+                    clearTimeout(fun.id);
+                    fun.id = setTimeout(function() {
+                        last = now;
+                        fun.call(that, _arg);
+                    }, delay);
+                } else {
+                    last = now;
+                    fun.call(that, _arg);
+                }
+            }
+        }
+        let throttleAjax = throttle(ajax, 500);
+        let throttleInput = document.getElementById('throttle');
+        throttleInput.addEventListener('keyup', function(e) {
+            throttleAjax(e.target.value);
+        })
+    }
+</script>
+
+<body>
+    <p>普通</p>
+    <input type="text" id="normal">
+    <p>防抖</p>
+    <input type="text" id="debounce">
+    <p>节流</p>
+    <input type="text" id="throttle">
+</body>
+</html>
