@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id='debounce'>
+    <input type="text" id="throttle">
+</body>
+
+<script>
+    const debounceInput = document.querySelector('#debounce');
+    const debounce = function(fn, delay) {
+        let defer;
+        return function(args) {
+            if (defer) {
+                clearTimeout(defer);
+            }
+            defer = setTimeout(() => {
+                fn();
+            }, delay)
+        }
+    }
+    debounceInput.addEventListener('input', debounce(() => console.log('output'), 1000))
+
+    const throttleInput = document.querySelector('#throttle');
+    const throttle = function(fn, delay) {
+        let defer = null;
+        return function() {
+            if (!defer) {
+                defer = setTimeout(() => {
+                    fn();
+                    defer = null;
+                }, delay);
+            }
+        }
+    }
+    throttleInput.addEventListener('input', throttle(() => console.log('节流输出'), 1000))
+</script>
+</html>

@@ -1,4 +1,6 @@
-const myFish = ["angle", "clown", "mandarin", "sturgeon"];
-const removed = myFish.splice(2, 0, "drum");
-console.log(myFish);
-console.log(removed);
+const a = Promise.resolve().then(() => {
+    resolve('test');
+}).then((res) => {
+    console.log(res);
+})
+
