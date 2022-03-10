@@ -1,5 +1,6 @@
-const p = new Promise((resolve, reject) => {
-    return Promise.resolve('test')
+const a = Promise.resolve().then(() => {
+    resolve('test');
+}).then((res) => {
+    console.log(res);
 })
 
-console.log(p);
