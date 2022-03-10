@@ -24,3 +24,12 @@ var removed = myFish.splice(2);
 // 运算后的 myFish: ["angel", "clown"]
 // 被删除的元素: ["mandarin", "sturgeon"]
 ```
+
+#### ```Array.prototype.every()```
+测试一个数组内所有元素是否能通过某个指定函数的测试，返回一个布尔值
+```javascript
+arr.every(callback(element[, index[, array]])[, thisArg])
+```
++ 收到空数组时，返回true
++ 不会改变原数组
++ 所有元素符合条件才会返回true

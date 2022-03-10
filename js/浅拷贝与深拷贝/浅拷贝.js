@@ -1,0 +1,1 @@
+const newObj = Object.assign({}, myObject); // 相当于等于号
