@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两边定宽中间自适应</title>
+</head>
+<body>
+    <header>头部</header>
+    <div class="container">
+        <div class="left">左边</div>
+        <div class="middle">中间</div>
+        <div class="right">右边</div>
+    </div>
+    <footer>底部</footer>
+</body>
+
+<style>
+    .container {
+        background-color: pink;
+        display: flex;
+    }
+
+    .left {
+        background-color: red;
+        width: 200px;
+    }
+
+    .middle {
+        background-color: yellow;
+        flex: 1;
+    }
+
+    .right {
+        background-color: blue;
+        width: 200px;
+    }
+</style>
+</html>

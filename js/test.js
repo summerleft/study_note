@@ -1,12 +1,6 @@
-function Car() {
-    this.name = 'test'
+function test(...args) {
+    console.log(args)
 }
 
-const car = new Car();
+test(1,2,3)
 
-console.log(car.__proto__ === Car.prototype);
-console.log(Car.__proto__ === Function.prototype);
-console.log(Function.__proto__ === Function.prototype);
-console.log(Car.prototype.__proto__ === Object.prototype);
-console.log(Function.prototype.__proto__ === Object.prototype);
-console.log(Object.prototype.__proto__ === null)

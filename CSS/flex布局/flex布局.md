@@ -55,7 +55,7 @@
 **假设在```flex-direction: row```条件下**
 + 默认值：```flex-start```:在主轴上左对齐
 + ```flex-end```:主轴上靠右对齐
-+ ```center```: 主轴上剧中
++ ```center```: 主轴上居中
 + ```space-between```: 两端对齐
 + ```space-around```: 每个项目两侧间隔相等，和```space-between```相比，两端的项目不会贴在边缘
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖节流</title>
+</head>
+<body>
+    <h3>防抖</h3>
+    <input type="text" id="debounceInput">
+    <h4>节流</h4>
+    <input type="text" id="throttleInput">
+</body>
+
+<script>
+    const ajax = (content) => {
+        console.log(content);
+    }
+
+    const debounce = function(fn, delay) {
+        let timer;
+        return function(...args) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, args);
+            }, delay)
+        }
+    }
+
+    const debounceEvent = debounce(ajax, 1000);
+    const debounceInput = document.getElementById('debounceInput');
+    debounceInput.addEventListener('keyup', (e) => {
+        debounceEvent(e.target.value);
+    })
+
+    const throttle = function(fn, delay) {
+        let canRun = true;
+        return function(...args) {
+            if (!canRun) return;
+            canRun = false;
+            setTimeout(() => {
+                fn.apply(this, args);
+                canRun = true;
+            }, delay)
+        }
+    }
+
+    const throttleEvent = throttle(ajax, 500);
+    const throttleInput = document.getElementById('throttleInput');
+    throttleInput.addEventListener('keyup', (e) => {
+        throttleEvent(e.target.value);
+    })
+</script>
+</html>
