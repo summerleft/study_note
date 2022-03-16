@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    const throttle = function(fn, delay) {
+        let canRun = true, isFirst = true;
+        return function(...args) {
+            if (isFirst) {
+                fn.apply(this, args);
+                isFirst = false;
+            }
+            if (!canRun) return;
+            canRun = false;
+            setTimeout(() => {
+                fn.apply(this, args);
+                canRun = true;
+            }, delay);
+        }
+    }
+
+    const print = function(content) {
+        console.log(content);
+    }
+
+    const throttlePrint = throttle(print, 500);
+    window.addEventListener('keyup', () => {
+        throttlePrint('test');
+    })
+</script>
+</html>
