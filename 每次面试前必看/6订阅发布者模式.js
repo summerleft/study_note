@@ -46,4 +46,5 @@ const fn2 = function(name, age) {
 eventBus.on('aaa', fn1);
 eventBus.on('aaa', fn2);
 eventBus.emit('aaa', false, 'he', '12');
+eventBus.emit('aaa', true, '1', '2');
 

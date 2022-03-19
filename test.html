@@ -11,43 +11,42 @@
 </body>
 
 <script>
-    const ajax = function(content) {
+    const ajax = (content) => {
         console.log(content);
     }
 
     const debounce = function(fn, delay) {
-        let timer;
-        return function(...arg) {
+        let timer = null;
+        return function(...args) {
             if (timer) {
                 clearTimeout(timer);
             }
             timer = setTimeout(() => {
-                fn.apply(this, arg);
-                timer = null;
-            }, delay)
+                fn.apply(this, args);
+            }, delay);
         }
     }
 
-    const debounceAjax = debounce(ajax, 1000);
+    const debounceInput = debounce(ajax, 500);
     // window.addEventListener('keyup', () => {
-    //     debounceAjax('防抖输出');
+    //     debounceInput('ajax');
     // })
 
     const throttle = function(fn, delay) {
         let canRun = true;
-        return function(...arg) {
+        return function(...args) {
             if (!canRun) return;
             canRun = false;
             setTimeout(() => {
-                fn.apply(this, arg);
+                fn.apply(this, args);
                 canRun = true;
             }, delay)
         }
     }
 
-    const throttleAjax = throttle(ajax, 500);
-    window.addEventListener('scroll', () => {
-        throttleAjax('节流事件')
+    const throttleInput = throttle(ajax, 1000);
+    window.addEventListener('keyup', () => {
+        throttleInput('ajax test');
     })
 </script>
 </html>

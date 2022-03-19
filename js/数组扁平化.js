@@ -6,3 +6,9 @@ const flatten = (arr) => {
 }
 
 console.log(flatten([1, [2, [3]]]));
+
+function fallten2(arr) {
+    return arr.reduce((pre, cur) => {
+        return pre.concat(Array.isArray(cur) ? fallten2(cur) : cur);
+    }, []);
+}
