@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>float实现圣杯（全部float:left）</title>
+    <title>flex实现圣杯布局</title>
 </head>
 <body>
     <div class="header">头部</div>
     <div class="container">
-        <div class="middle">中间</div>
         <div class="left">左边</div>
+        <div class="middle">中间</div>
         <div class="right">右边</div>
     </div>
-    <div class="footer">底部</div>    
+    <div class="footer">底部</div>
 </body>
 
 <style>
@@ -26,35 +26,27 @@
         height: 40px;
         width: 100%;
         background-color: red;
-    }
-
-    .footer {
-        clear: both;
+        text-align: center;
+        line-height: 40px;
     }
 
     .container {
-        padding-left: 200px;
-        padding-right: 250px;
-    }
-
-    .container div {
-        position: relative;
-        float: left;
+        display: flex;
     }
 
     .middle {
+        flex: 1;
         background-color: yellow;
-        width: 100%;
     }
 
     .left {
-        background-color: pink;
         width: 200px;
+        background-color: pink;
     }
 
     .right {
+        width: 300px;
         background-color: aqua;
-        width: 250px;
     }
 </style>
 </html>
