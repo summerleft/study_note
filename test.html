@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    const ajax = function(content) {
+        console.log(content);
+    }
+
+    const debounce = function(fn, delay) {
+        let timer;
+        return function(...arg) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, arg);
+                timer = null;
+            }, delay)
+        }
+    }
+
+    const debounceAjax = debounce(ajax, 1000);
+    // window.addEventListener('keyup', () => {
+    //     debounceAjax('防抖输出');
+    // })
+
+    const throttle = function(fn, delay) {
+        let canRun = true;
+        return function(...arg) {
+            if (!canRun) return;
+            canRun = false;
+            setTimeout(() => {
+                fn.apply(this, arg);
+                canRun = true;
+            }, delay)
+        }
+    }
+
+    const throttleAjax = throttle(ajax, 500);
+    window.addEventListener('scroll', () => {
+        throttleAjax('节流事件')
+    })
+</script>
+</html>
