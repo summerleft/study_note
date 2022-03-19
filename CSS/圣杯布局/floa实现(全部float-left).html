@@ -4,23 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>float实现(左边float:left,右边float:right)</title>
+    <title>float实现圣杯（全部float:left）</title>
 </head>
 <body>
     <div class="header">头部</div>
     <div class="container">
+        <div class="middle">中间</div>
         <div class="left">左边</div>
         <div class="right">右边</div>
-        <div class="middle">中间</div>
-        
     </div>
     <div class="footer">底部</div>    
 </body>
 
 <style>
     * {
-        padding: 0;
         margin: 0;
+        padding: 0;
     }
 
     .header, .footer {
@@ -29,24 +28,37 @@
         background-color: red;
     }
 
+    .footer {
+        clear: both;
+    }
+
     .container {
-        overflow: hidden;
+        padding-left: 200px;
+        padding-right: 250px;
+    }
+
+    .container div {
+        position: relative;
+        float: left;
     }
 
     .middle {
         background-color: yellow;
+        width: 100%;
     }
 
     .left {
-        float: left;
-        width: 200px;
         background-color: pink;
+        width: 200px;
+        margin-left: -100%;
+        left: -200px;
     }
 
     .right {
-        float: right;
         background-color: aqua;
         width: 250px;
+        margin-left: -250px;
+        right: -250px;
     }
 </style>
 </html>
