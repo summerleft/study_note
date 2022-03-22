@@ -51,7 +51,7 @@ const treeToArray = (tree, res = [], pid = null) => {
         item.children && treeToArray(item.children, res, item.id)
         res.push({
             id: item.id,
-            pid: item.pid,
+            pid: pid,
             name: item.name
         })
 

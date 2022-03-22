@@ -7,7 +7,7 @@ const objFlat = (obj) => {
             }
         } else if (Array.isArray(value)) {
             for (let i = 0; i < value.length; i++) {
-                process(`{key}[${i}]`, value[i])
+                process(`${key}[${i}]`, value[i])
             }
             if (value.length === 0) {
                 res[key] = []
@@ -35,6 +35,7 @@ console.log(objFlat({
         e: 3
     },
     f: {
-        g: 2
+        g: 2,
+        h: [1,2,3]
     }
 }))

@@ -23,6 +23,7 @@
         return function(...args) {
             if (timer) {
                 clearTimeout(timer);
+                console.log(timer);
             }
             timer = setTimeout(() => {
                 fn.apply(this, args);
@@ -51,7 +52,7 @@
     const throttleEvent = throttle(ajax, 500);
     const throttleInput = document.getElementById('throttleInput');
     throttleInput.addEventListener('keyup', (e) => {
-        throttleEvent(e.target.value);
+        // throttleEvent(e.target.value);
     })
 </script>
 </html>

@@ -1,2 +1,15 @@
-let arr = [1,2,3]
-console.log(arr.indexOf('1'));
+var a = '1';
+function main() {
+    function b(b) {
+        a = '2';
+        return b
+    }
+    function c(c) {
+        console.log(a);
+        var a = 'b';
+    }
+    console.log(b(a));
+    c(a);
+}
+main();
+console.log(a);

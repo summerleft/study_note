@@ -4,49 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>五角星</title>
+    <title>Document</title>
 </head>
 <body>
-    <div id="star"></div>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
 </body>
-
 <style>
-    #star {
-        position: relative;
-        margin: 200px auto;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-color: transparent transparent red transparent;
-        border-width: 70px 100px;
-        transform: rotate(35deg);
+    .outer {
+        background-color: #f00;
     }
 
-    #star::before {
-        position: absolute;
-        content: '';
-        width: 0;
-        height: 0;
-        top: -128px;   
-        left: -95px;
-        border-style: solid;
-        border-color: transparent transparent red transparent;
-        border-width: 80px 30px;
-        transform: rotate(-35deg);
+    .inner {
+        box-sizing: content-box;
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+        border: 1px #fff solid;
+        margin: 10px;
     }
-
-    #star::after {
-        position: absolute;
-        content: '';
-        top: -45px;
-        left: -140px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-color: transparent transparent red transparent;
-        border-width: 70px 100px;
-        transform: rotate(-70deg);
-    }
-    
 </style>
 </html>

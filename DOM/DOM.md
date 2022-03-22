@@ -19,7 +19,7 @@
 + ```document.getElementById(id)```:根据id获取文档中的元素
 + ```document.getElementsByName(name)```:根据name获取文档中的元素，很少使用
 + ```document/element.getElementsByTagName(tagName)```: 根据标签名称获取文档或某个元素内的元素
-+ ```document/element.getElementByClassName(className)```:根据类名获取文档或某个元素内的元素
++ ```document/element.getElementsByClassName(className)```:根据类名获取文档或某个元素内的元素
 > 没有```element.getElementById(id)```
 
 > 除了```document.getElementById()```,其他方法的返回结果都是一个集合
