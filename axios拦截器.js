@@ -1,5 +1,3 @@
-// const newObj = JSON.parse(JSON.stringify(someObj));
-
 const deepClone = (target, map = new Map()) => {
     if (typeof target !== 'object') return target;
     else {
