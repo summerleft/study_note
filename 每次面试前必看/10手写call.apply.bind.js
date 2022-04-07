@@ -1,38 +1,28 @@
-Function.prototype.myCall = function(context) {
+Function.prototype.myCall = function(context, ...args) {
     context || (context = window);
-    context.fn = this;
-    const args = [...arguments].slice(1);
-    const res = context.fn(...args);
-    delete context.fn;
+    const fnSymbol = Symbol("fn");
+    context[fnSymbol] = this;
+    const res = context[fnSymbol](...args);
+    delete context[fnSymbol];
     return res;
 }
 
-const me = { name: 'Jack' }
-function say() {
-  console.log(`My name is ${this.name || 'default'}`);
-}
-say.myCall(me)
-
-Function.prototype.myApply = function(context) {
+Function.prototype.myApply = function(context, args) {
     context || (context = window);
-    context.fn = this;
-    const args = [...arguments].slice(1);
-    const res = context.fn(args);
-    delete context.fn;
+    const fnSymbol = Symbol("fn");
+    context[fnSymbol] = this;
+    const res = context[fnSymbol](...args);
+    delete context[fnSymbol];
     return res;
 }
 
-Function.prototype.myBind = function(context) {
-    const fn = this;
-    const args = [...arguments].slice(1);
-    const newFunc = function() {
-        const newArgs = args.concat([...arguments]);
-        if (this instanceof newFunc) {
-            fn.apply(this, newArgs);
-        } else {
-            fn.apply(context, newArgs);
-        }
-        
+Function.prototype.myBind = function(context, ...args) {
+    context || (context = window);
+    const fnSymbol = Symbol("fn");
+    context[fnSymbol] = this;
+    return function() {
+        args = args.concat([...arguments]);
+        context[fnSymbol](...args);
+        delete context[fnSymbol];
     }
-    return newFunc;
 }
