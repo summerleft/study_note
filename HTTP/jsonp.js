@@ -1,14 +1,21 @@
-const jsonp = (url, data={}, callback='callback') => {
-    let dataStr = url.indexOf('?')=== -1 ? '?' : '&';
-    for (let key in data) {
-        dataStr += `${key}=${data[key]}&`
+const jsonp = ({url, params, callbackName}) => {
+    const generateURL = () => {
+        let dataStr = '';
+        for (let key in params) {
+            dataStr += `${key}=${params[key]}&`;
+        }
+        dataStr += `callback=${callbackName}`;
+        return `${url}?${dataStr}`;
     }
-    dataStr += `callback=` + callback
 
-    let oScript = document.createElement('script');
-    oScript.src = url + dataStr;
-    document.body.appendChild(oScript);
-    window[callback] = (data) => {
-        console.log(data);
-    }
+    return new Promise((resolve, reject) => {
+        callbackName = callbackName || Math.random().toString.replace(',', '');
+        let scriptEle = document.createElement('script');
+        scriptEle.src = genereteURL();
+        document.body.appendChild(scriptEle);
+        window[callbackName] = (data) => {
+            resolve(data);
+            document.body.removeChild(scriptEle);
+        }
+    })
 }

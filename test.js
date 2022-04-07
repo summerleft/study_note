@@ -1,14 +1,28 @@
-const jsonp = (url, data={}, callback='callback') => {
-    let dataStr = url.indexOf('?') !== -1 ? '&' : '?';
-    for (let key in data) {
-        dataStr += `${key}=${data[key]}&`;
-    }
-    dataStr += 'callback=' + callback;
+// try {
+//     function ajaxGet(url, (err, res) => {
+//         res.children.name = 'test';
+//     })
+// } catch(e) {
+//     console.log('res has no attribute children');
+// }
 
-    let oScript = document.createElement('script');
-    oScript.src = url + dataStr;
-    document.body.appendChild(oScript);
-    window[callback] = (data) => {
-        console.log(data);
-    }
+
+function ajax() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject(new Error('testerror'));
+        }, 1000)
+    })
 }
+
+async function test() {
+    try {
+        const res = await ajax();
+        console.log(res);
+    } catch(e) {
+        console.log(e);
+    }
+}   
+
+test();
+

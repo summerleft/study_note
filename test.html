@@ -7,16 +7,44 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id="canvas" width="800px" height="800px"></canvas>
+    <header>头部</header>
+    <div class="container">
+        <div class="middle">中间</div>
+        <div class="left">左边</div>
+        <div class="right">右边</div>
+    </div>
+    <footer>底部</footer>
 </body>
 
-<script>
-    const context = canvas.getContext("2d");
+<style>
+    .container {
+        background-color: pink;
+        overflow: hidden;
+        padding: 0 200px 0 100px;
+    }
 
-    context.beginPath();
-    context.arc(300, 350, 100, 0, 2 * Math.PI, true);
-    context.closePath();
-    context.fillStyle = 'rgba(255, 0, 0, 0.25)';
-    context.fill();
-</script>
+    .left {
+        background-color: red;
+        float: left;
+        width: 100px;
+        position: relative;
+        left: -100px;
+        margin-left: -100%;
+    }
+
+    .middle {
+        background-color: yellow;
+        float: left;
+        width: 100%;
+    }
+
+    .right {
+        background-color: aqua;
+        float: left;
+        width: 200px;
+        position: relative;
+        margin-left: -200px;
+        left: 200px;
+    }
+</style>
 </html>
