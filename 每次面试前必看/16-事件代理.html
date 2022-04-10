@@ -12,15 +12,15 @@
 
 <script>
     const ul = document.createElement('ul');
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const li = document.createElement('li');
         li.innerHTML = i;
         ul.appendChild(li);
     }
-    const body = document.querySelector('body');
-    body.appendChild(ul);
     ul.addEventListener('click', (e) => {
         console.log(e.target.innerHTML);
     })
+    const body = document.querySelector('body');
+    body.appendChild(ul);
 </script>
 </html>
