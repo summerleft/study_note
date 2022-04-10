@@ -11,8 +11,9 @@
 // }
 
 function replaceKey(url, keyValue) {
-    
-     
+    const urlObj = new URL(url);
+    urlObj.searchParams.set('key', keyValue);
+    return urlObj.href;
 }
 
 console.log(replaceKey('https://www.nowcoder.com/discuss/v2/post?type=0&key=test', 'abcd'));
