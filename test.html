@@ -9,7 +9,9 @@
 <body>
     <div class="header">顶部</div>
     <div class="container">
-        <div class="middle">中间</div>
+        <div class="middle">
+            <div class="inner">中间</div>
+        </div>
         <div class="left">左边</div>
         <div class="right">右边</div>
     </div>
@@ -19,23 +21,31 @@
 <style>
     .container {
         background-color: pink;
-        display: flex;
+        overflow: hidden;
+    }
+
+    .left {
+        background-color: red;
+        float: left;
+        width: 200px;
+        margin-left: -100%;
     }
 
     .middle {
         background-color: yellow;
-        flex: 1;
-    }   
-
-    .left {
-        background-color: red;
-        order: -1;
-        width: 100px;
+        float: left;
+        width: 100%
     }
 
     .right {
         background-color: aqua;
-        width: 200px
+        float: left;
+        width: 200px;
+        margin-left: -200px;
+    }
+
+    .inner {
+        margin: 0 200px;
     }
 </style>
 
