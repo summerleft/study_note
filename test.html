@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="header">顶部</div>
+    <header>头部</header>
     <div class="container">
         <div class="middle">
             <div class="inner">中间</div>
@@ -21,35 +21,34 @@
 <style>
     .container {
         background-color: pink;
+        padding: 0 200px;
         overflow: hidden;
     }
 
     .left {
+        position: relative;
         background-color: red;
-        float: left;
         width: 200px;
+        float: left;
+        left: -200px;
         margin-left: -100%;
     }
 
     .middle {
         background-color: yellow;
-        float: left;
-        width: 100%
+        position: relative;
+        float:left;
+        width: 100%;
     }
 
     .right {
+        position: relative;
         background-color: aqua;
-        float: left;
         width: 200px;
+        float: left;
+        left: 200px;
         margin-left: -200px;
-    }
-
-    .inner {
-        margin: 0 200px;
     }
 </style>
 
-<script>
-    
-</script>
 </html>
