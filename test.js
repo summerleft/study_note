@@ -11,19 +11,9 @@ class EventEmitter {
         }
     }
 
-    off(event, fn) {
-        const tasks = this.cache[event];
-        if (tasks) {
-            const index = tasks.findIndex(f => f === fn);
-            if (index > 0) {
-                tasks.splice(index, 1);
-            }
-        }
-    }
-
     emit(event, ...args) {
         if (this.cache[event]) {
-            const tasks = this.cache[event].slice();
+            const tasks = this.cache[event];
             tasks.forEach((fn) => {
                 fn(...args);
             })
@@ -31,138 +21,40 @@ class EventEmitter {
     }
 }
 
-const eventEmitter = new EventEmitter();
-const testFn = (content) => console.log(content);
-eventEmitter.on('aaa', testFn);
-eventEmitter.emit('aaa', 'test');
-
-// 防抖节流
 function debounce(fn, delay) {
     let timer = null;
     return function() {
         if (timer) {
             clearTimeout(timer);
-        } else {
-            timer = setTimeout(() => {
-                fn();
-            }, delay);
         }
+        timer = setTimeout(() => {
+            fn();
+        }, delay)
     }
 }
 
 function throttle(fn, delay) {
     let canRun = true;
-    return function(...args) {
-        if (!canRun) {
-            return;
-        }
+    return function() {
+        if (!canRun) return;
         canRun = false;
         setTimeout(() => {
-            fn.apply(this, args);
+            fn();
             canRun = true;
         }, delay);
     }
 }
 
-function Animal(name) {
-    this.name = name;
-}
-
-Animal.prototype.getName = function() {
-    return this.name;
-}
-
-function Dog(name, age) {
-    Animal.call(this, name);
-    this.age = age;
-}
-
-Dog.prototype = Object.create(Animal.prototype);
-Dog.prototype.constructor = Dog;
-
-class Animal {
-    constructor(name) {
-        this.name = name;
-    }
-
-    getName() {
-        return this.name;
-    }
-}
-
-class Dog extends Animal {
-    constructor(name, age) {
-        super(name);
-        this.age = age;
-    }
-}
-
-function myCreate(obj) {
-    function f(){};
-    f.prototype = obj;
-    return new f();
-}
-
-Promise.myAll = (arrs) => {
-    const result = [];
-    let count = 0;
-    return new Promise((resolve, reject) => {
-        arrs.forEach((p, i) => {
-            Promise.resolve(p).then((res) => {
-                result[i] = res;
-                count++;
-                if (count === arrs.length) {
-                    resolve(res);
-                }
-            }, (err) => {
-                reject(err);
-            })
-        })
-    })
-}
-
-Promise.myRace = (arrs) => {
-    return new Promise((resolve, reject) => {
-        arrs.forEach((p, j) => {
-            Promise.resolve(p).then((res) => {
-                resolve(res);
-            }, (err) => {
-                reject(err);
-            })
-        })
-    })
-}
-
 Function.prototype.myCall = function(context, ...args) {
     context || (context = window);
-    const fnSymbol = new Symbol("fn");
+    const fnSymbol = Symbol("fn");
     context[fnSymbol] = this;
     const res = context[fnSymbol](...args);
     delete context[fnSymbol];
     return res;
 }
 
-Function.prototype.myApply = function(context, args) {
-    context || (context = window);
-    const fnSymbol = new Symbol("fn");
-    context[fnSymbol] = this;
-    const res = context[fnSymbol](...args);
-    delete context[fnSymbol];
-    return res;
-}
-
-Function.prototype.myBind = function(context, ...args) {
-    context || (context = window);
-    const fnSymbol = new Symbol("fn");
-    context[fnSymbol] = this;
-    return function() {
-        args = [...args, ...arguments];
-        context[fnSymbol](...args);
-        delete context[fnSymbol];
-    }
-}
-
-function curry(fn, ...args) {
+const curry = function(fn, ...args) {
     return function() {
         args = [...args, ...arguments];
         if (args.length < fn.length) {
@@ -171,6 +63,64 @@ function curry(fn, ...args) {
             return fn.apply(null, args);
         }
     }
+}
+
+const arr = [
+    { id: 1, pid: null, name: "研发部" },
+    { id: 8, pid: 4, name: "Java后端研发部" },
+    { id: 2, pid: null, name: "管理部" },
+    { id: 3, pid: 1, name: "前端研发部" },
+    { id: 4, pid: 1, name: "后端研发部" },
+    { id: 5, pid: 2, name: "行政管理部" },
+    { id: 6, pid: 2, name: "人力资源管理部" },
+    { id: 7, pid: null, name: "财务部" },
+]
+
+const tree = [
+    {
+        id: 1, name: '研发部', children: [
+            { id: 3, name: '前端研发部' },
+            {
+                id: 4, name: '后端研发部', children: [
+                    { id: 8, name: 'Java后端研发部' }
+                ]
+            }
+        ]
+    },
+    {
+        id: 2, name: '管理部', children: [
+            { id: 5, name: '行政管理部' },
+            { id: 6, name: '人力资源管理部' },
+        ]
+    },
+    { id: 7, name: '财务部' },
+
+]
+
+const arrToTree = (arr, pid = null) => {
+    return arr.reduce((pre, cur) => {
+        if (cur.pid === pid) {
+            const children = arrToTree(arr, cur.id);
+            if (children.length) {
+                cur.children = children;
+            }
+            delete cur.id;
+            pre.push({...cur})
+        }
+    }, [])
+}
+
+const treeToArr = (tree, res=[], pid=null) => {
+    for (let item of tree) {
+        item.children && treeToArray(item.children, res, item.id)
+        res.push({
+            id: item.id,
+            pid: pid,
+            name: item.name
+        })
+
+    }
+    return res
 }
 
 function deepClone(target, map = new WeakMap()) {
@@ -182,9 +132,36 @@ function deepClone(target, map = new WeakMap()) {
             return map.get(target);
         }
         map.set(target, res);
-        for (let key in target) {
-            res[key] = deepClone(target[key], map);
+        for (const key in target) {
+            res[key] = deepClone(target[key]);
         }
     }
     return res;
-} 
+}
+
+function mergeSort(arr) {
+    const len = arr.length;
+    if (len < 2) return arr;
+    const middle = Math.floor(len / 2),
+          left = arr.slice(0, middle),
+          right = arr.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+    const result = [];
+    while (left.length && right.length) {
+        if (left[0] <= right[0]) {
+            result.push(left.shift());
+        } else {
+            result.push(right.shift());
+        }
+    }
+    while (left.length) {
+        result.push(left.shift());
+    }
+    while (right.length) {
+        result.push(right.shift());
+    }
+    return result;
+}
