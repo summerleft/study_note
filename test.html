@@ -7,48 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <header>头部</header>
-    <div class="container">
-        <div class="middle">
-            <div class="inner">中间</div>
-        </div>
-        <div class="left">左边</div>
-        <div class="right">右边</div>
-    </div>
-    <footer>底部</footer>
+    <button id="button">button</button><br>
+    <ul id="container"></ul>
 </body>
 
-<style>
-    .container {
-        background-color: pink;
-        padding: 0 200px;
-        overflow: hidden;
-    }
-
-    .left {
-        position: relative;
-        background-color: red;
-        width: 200px;
-        float: left;
-        left: -200px;
-        margin-left: -100%;
-    }
-
-    .middle {
-        background-color: yellow;
-        position: relative;
-        float:left;
-        width: 100%;
-    }
-
-    .right {
-        position: relative;
-        background-color: aqua;
-        width: 200px;
-        float: left;
-        left: 200px;
-        margin-left: -200px;
-    }
-</style>
-
+<script>
+    document.getElementById('button').addEventListener('click', () => {
+        let now = Date.now();
+        const total = 10000;
+        let ul = document.getElementById('container');
+        for (let i = 0; i < total; i++) {
+            let li = document.createElement('li');
+            li.innerText = ~~(Math.random() * total);
+            ul.appendChild(li);
+        }
+        console.log('JS运行时间:', Date.now() - now);
+        setTimeout(() => {
+            console.log('总运行时间：', Date.now() - now);
+        }, 0)
+    })
+</script>
 </html>
